@@ -7,6 +7,8 @@ export function createPinia() {
   // 映射状态
   const state = ref({})
 
+  const _p = []
+
   const pinia = {
     install(app) {
       app.config.globalProperties.$pinia = pinia
@@ -14,8 +16,14 @@ export function createPinia() {
       //   vue3 通过provide inject 注入
       app.provide(PiniaSymbol, pinia)
     },
+    use(plugin) {
+      _p.push(plugin)
+      // 链式调用
+      return this
+    },
     state,
-    _s: new Map() // id -> store
+    _s: new Map(), // id -> store
+    _p
   }
 
   return pinia

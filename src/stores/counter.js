@@ -1,5 +1,6 @@
 import { defineStore } from '../pinia'
 import { ref, computed } from 'vue'
+// import { useTodoStore } from './todo'
 
 // export const useCounterStore = defineStore('counter', {
 //   state: () => {
@@ -27,8 +28,17 @@ export const useCounterStore = defineStore('counter', () => {
   })
 
   const increment = (payload) => {
-    count.value += payload
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        count.value += payload
+        resolve()
+      }, 1000)
+    })
   }
+
+  // const todoStore = useTodoStore()
+
+  // console.log(todoStore.todos)
 
   return {
     count,
